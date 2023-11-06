@@ -25,7 +25,7 @@
     <parent>
         <groupId>com.geeks.demo</groupId>
         <artifactId>geeksdemo</artifactId>
-        <version>${revision}</version>
+        <version>1.0.3-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
