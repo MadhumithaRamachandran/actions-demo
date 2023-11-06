@@ -29,7 +29,8 @@ jobs:
         cache: maven
         
     - name: Step3 - Increment Maven Version
-      run: mvn clean install -Drevision=1.0.0
+      run: mvn versions:set -DnewVersion=1.1.0 versions:commit
+      
     - name: Step4 - Commit POM changes to GIT
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
