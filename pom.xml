@@ -19,7 +19,7 @@
     <groupId>com.geeks.demo</groupId>
     <artifactId>geeksdemo</artifactId>
     <packaging>pom</packaging>
-    <version>${revision}</version>
+    <version>1.0.3-SNAPSHOT</version>
     <name>Geeks Demo</name>
     <description>Geeks Demo</description>
 
