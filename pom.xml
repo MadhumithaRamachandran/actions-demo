@@ -19,7 +19,7 @@
     <groupId>com.geeks.demo</groupId>
     <artifactId>geeksdemo</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <name>Geeks Demo</name>
     <description>Geeks Demo</description>
 
@@ -33,8 +33,6 @@
         <module>ui.content</module>
         <module>it.tests</module>
         <module>dispatcher</module>
-        <module>dispatcher.ams</module>
-        <module>dispatcher.cloud</module>
         <module>ui.tests</module>
       <module>ui.frontend.react.forms.af</module>
   </modules>
@@ -55,6 +53,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <componentGroupName>Geeks Demo</componentGroupName>
+		<revision>1.0.0-SNAPSHOT</revision>
     </properties>
 
     <build>
