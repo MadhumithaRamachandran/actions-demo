@@ -31,10 +31,10 @@ jobs:
     - name: Step3 - Increment Maven Version
       run: mvn versions:set -DnewVersion=1.2.0 versions:commit
       
-    - name: Step4 - Commit POM changes to GIT
-      uses: actiondemo/git-auto-commit-action@v5
+    - name: Step4 - Commit and Push POM changes to GIT
+      uses: actions-js/push@master
       with:
-        commit_message: POM Version Update
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Step5 - Create Tag
       uses: actions/github-script@v5
