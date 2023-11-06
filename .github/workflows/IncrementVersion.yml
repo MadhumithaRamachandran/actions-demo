@@ -29,9 +29,17 @@ jobs:
         cache: maven
         
     - name: Step3 - Increment Maven Version
-      run: mvn versions:set -DnewVersion=1.1.0 versions:commit
+      run: mvn versions:set -DnewVersion=1.2.0 versions:commit
       
     - name: Step4 - Commit POM changes to GIT
-      uses: stefanzweifel/git-auto-commit-action@v5
+      uses: actiondemo/git-auto-commit-action@v5
       with:
         commit_message: POM Version Update
+        
+    - name: Step5 - Create Tag
+      uses: actiondemo/action-create-tag@v1
+      id: "tag_create"
+      with:
+          tag: "v1.2.0"
+          tag_exists_error: false
+          message: "Latest release"
