@@ -31,9 +31,6 @@ function bump {
     esac
 }
 
-git config --global user.email $EMAIL
-git config --global user.name $NAME
-
 OLD_VERSION=$($DIR/get-version.sh)
 
 BUMP_MODE="none"
@@ -48,10 +45,10 @@ fi
 if [[ "${BUMP_MODE}" == "none" ]]
 then
   echo "No matching commit tags found."
-  echo "pom.xml at" $POMPATH "will remain at" $OLD_VERSION
+  echo "version will remain at" $OLD_VERSION
 else
   echo $BUMP_MODE "version bump detected"
   bump $BUMP_MODE $OLD_VERSION
-  echo "pom.xml at" $POMPATH "will be bumped from" $OLD_VERSION "to" $NEW_VERSION
-  mvn -q versions:set -DnewVersion="${NEW_VERSION}"
+  echo "version will be bumped from" $OLD_VERSION "to" $NEW_VERSION
+  mvn -q versions:set -DnewVersion="${NEW_VERSION}" versions:commit
 fi
