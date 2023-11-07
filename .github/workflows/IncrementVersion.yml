@@ -28,21 +28,11 @@ jobs:
         distribution: 'temurin'
         cache: maven
         
-    - name: Step3 - Increment Maven Version
-      run: mvn versions:set -DnewVersion=1.3.0 versions:commit
-      
-    - name: Step4 - Commit and Push POM changes to GIT
-      uses: actions-js/push@master
+    - name: Bump Version
+      id: bump
+      uses: nnichols/maven-version-bump-action@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        
-    - name: Step5 - Create Tag
-      uses: actions/github-script@v5
-      with:
-          script: |
-            github.rest.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: 'refs/tags/v1.3.0',
-              sha: context.sha
-            })
+        github-token: ${{ secrets.github_token }}
+
+    - name: Print Version
+      run: "echo 'New Version: ${{steps.bump.outputs.version}}'"
