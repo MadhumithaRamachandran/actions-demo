@@ -11,7 +11,7 @@ name: Maven Increment Version
 on:
   push:
     branches: [ "main" ]
-
+ 
 jobs:
   build:
 #type of runner that the job will run upon
@@ -28,11 +28,28 @@ jobs:
         distribution: 'temurin'
         cache: maven
         
-    - name: Bump Version
-      id: bump
-      uses: nnichols/maven-version-bump-action@v3
+    - name: Step3 - Bump Version
+      env:
+        TOKEN: ${{ inputs.github-token }}
+        EMAIL: ${{ inputs.git-email }}
+        NAME: ${{ inputs.git-username }}
+        POMPATH: ${{ inputs.pom-path }}
+      run: ${{github.action_path}}/version-bump.sh
+      shell: bash
+      
+    - name: Step4 - Commit and Push POM changes to GIT
+      uses: actions-js/push@master
       with:
-        github-token: ${{ secrets.github_token }}
-
-    - name: Print Version
-      run: "echo 'New Version: ${{steps.bump.outputs.version}}'"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Step5 - Create Tag
+      uses: actions/github-script@v5
+      with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/v1.3.0',
+              sha: context.sha
+            })
+     
