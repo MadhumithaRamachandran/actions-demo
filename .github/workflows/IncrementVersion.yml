@@ -34,7 +34,7 @@ jobs:
         EMAIL: ${{ inputs.git-email }}
         NAME: ${{ inputs.git-username }}
         POMPATH: ${{ inputs.pom-path }}
-      run: ${{github.action_path}}/version-bump.sh
+      run: $GITHUB_PATH/version-bump.sh
       shell: bash
       
     - name: Step4 - Commit and Push POM changes to GIT
