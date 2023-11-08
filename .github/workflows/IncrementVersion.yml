@@ -1,56 +1,52 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+# ref: https://help.github.com/en/actions/building-actions/metadata-syntax-for-github-actions
+name: Maven Version Bump Action
+description: A simple GitHub Actions to bump the version of Maven projects
 
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
+author: Nick Nichols
 
-name: Maven Increment Version
+branding:
+  color: purple
+  icon: git-commit
 
-on:
-  push:
-    branches: [ "main" ]
- 
-jobs:
-  build:
-#type of runner that the job will run upon
-    runs-on: ubuntu-latest
+inputs:
+  github-token:
+    description: 'A GitHub auth token to be able to create the pull request'
+    required: true
+  pom-path:
+    description: 'The relative location of your pom.xml file'
+    required: true
+    default: '.'
+  git-email:
+    description: 'The email address used to create the version bump commit with.'
+    required: true
+    default: 41898282+github-actions[bot]@users.noreply.github.com
+  git-username:
+    description: 'The name to use for the version bump commit. e.g. github.actor'
+    required: true
+    default: github-actions[bot]
 
-    steps:
-    - name: Step1 - Checkout main branch from Github      
-      uses: actions/checkout@v3
-    
-    - name: Step2 - Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
-        
-    - name: Step3 - Bump Version
+outputs:
+  version:
+    description: 'The current version (whether updated or not)'
+    value: ${{ steps.get-outputs.outputs.version }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Bump Version
       env:
         TOKEN: ${{ inputs.github-token }}
         EMAIL: ${{ inputs.git-email }}
         NAME: ${{ inputs.git-username }}
         POMPATH: ${{ inputs.pom-path }}
-      
-      run: $GITHUB_PATH/version-bump.sh
+      run: ${{github.action_path}}/version-bump.sh
       shell: bash
-      
-    - name: Step4 - Commit and Push POM changes to GIT
-      uses: actions-js/push@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        
-    - name: Step5 - Create Tag
-      uses: actions/github-script@v5
-      with:
-          script: |
-            github.rest.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: 'refs/tags/v1.3.0',
-              sha: context.sha
-            })
-     
+    - name: Set outputs
+      id: get-outputs
+      shell: bash
+      env:
+        POMPATH: ${{ inputs.pom-path }}
+      run: echo "::set-output name=version::$(${{github.action_path}}/get-version.sh)"
+    - name: Result
+      shell: bash
+      run: "echo 'Version is now ${{ steps.get-outputs.outputs.version }}'"
