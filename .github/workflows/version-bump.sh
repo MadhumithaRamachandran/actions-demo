@@ -50,5 +50,5 @@ else
   echo $BUMP_MODE "version bump detected"
   bump $BUMP_MODE $OLD_VERSION
   echo "version will be bumped from" $OLD_VERSION "to" $NEW_VERSION
-  mvn -q versions:set -DnewVersion="${NEW_VERSION}" versions:commit
+  mvn -U versions:set -DnewVersion="${NEW_VERSION}" versions:commit
 fi
