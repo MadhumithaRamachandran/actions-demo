@@ -29,7 +29,7 @@ jobs:
         cache: maven
         
     - name: Step3 - Make file executable   
-      run: git update-index --chmod=+x $GITHUB_WORKSPACE/.github/workflows/version-bump.sh      
+      run: $GITHUB_WORKSPACE/.github/workflows/version-bump.sh      
     
     - name: Step4 - Execute Script to Bump Version 
       run: $GITHUB_WORKSPACE/.github/workflows/version-bump.sh
