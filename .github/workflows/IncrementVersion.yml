@@ -28,23 +28,15 @@ jobs:
         distribution: 'temurin'
         cache: maven
         
-    - name: Step3 - Bump Version   
+    - name: Step3 - Make file executable   
       run: git update-index --chmod=+x $GITHUB_WORKSPACE/.github/workflows/version-bump.sh      
+    
+    - name: Step4 - Execute Script to Bump Version 
+      run: $GITHUB_WORKSPACE/.github/workflows/version-bump.sh
       shell: bash
       
     - name: Step4 - Commit and Push POM changes to GIT
       uses: actions-js/push@master
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        
-    - name: Step5 - Create Tag
-      uses: actions/github-script@v5
-      with:
-          script: |
-            github.rest.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: 'refs/tags/v1.3.0',
-              sha: context.sha
-            })
-     
+        github_token: ${{ secrets.GITHUB_TOKEN }}        
+
