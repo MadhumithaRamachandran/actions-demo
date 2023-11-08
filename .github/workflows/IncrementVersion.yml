@@ -2,8 +2,6 @@
 name: Maven Version Bump Action
 description: A simple GitHub Actions to bump the version of Maven projects
 
-author: Nick Nichols
-
 branding:
   color: purple
   icon: git-commit
