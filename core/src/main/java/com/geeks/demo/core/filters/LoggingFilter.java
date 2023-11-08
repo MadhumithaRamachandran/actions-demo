@@ -51,7 +51,7 @@ public class LoggingFilter implements Filter {
                          final FilterChain filterChain) throws IOException, ServletException {
 
         final SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) request;
-        logger.debug("request for {} with filterchain, with selector {}", slingRequest
+        logger.debug("request for {} with filterchain, with selectorsss {}", slingRequest
                 .getRequestPathInfo().getResourcePath(), slingRequest
                 .getRequestPathInfo().getSelectorString());
 
