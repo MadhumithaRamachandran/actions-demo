@@ -30,7 +30,7 @@ function bump {
       ;;
     esac
 }
-
+echo "Directory Path" $DIR
 OLD_VERSION=$($DIR/get-version.sh)
 
 BUMP_MODE="none"
