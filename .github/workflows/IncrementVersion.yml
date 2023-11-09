@@ -35,5 +35,9 @@ jobs:
     - name: Step4 - Commit and Push POM changes to GIT
       uses: actions-js/push@master
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}        
+        github_token: ${{ secrets.GITHUB_TOKEN }}    
+
+    - name: Step5 - Create Tag and Commit
+      run: $GITHUB_WORKSPACE/.github/workflows/create-tag.sh
+      shell: bash
 
