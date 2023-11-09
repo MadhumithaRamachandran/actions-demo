@@ -1,1 +1,1 @@
-cd mvn help:evaluate -Dexpression=project.version -q -DforceStdout
+cd ${GITHUB_WORKSPACE} && mvn help:evaluate -Dexpression=project.version -q -DforceStdout
