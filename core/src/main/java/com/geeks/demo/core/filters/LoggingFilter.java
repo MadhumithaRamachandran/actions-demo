@@ -54,6 +54,7 @@ public class LoggingFilter implements Filter {
 
         logger.debug("log request for {} with filterchain, with selectorsss {} changed new", slingRequest
 
+
                 .getRequestPathInfo().getResourcePath(), slingRequest
                 .getRequestPathInfo().getSelectorString());
 
