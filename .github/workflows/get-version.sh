@@ -1,2 +1,1 @@
-POMPATH = $GITHUB_WORKSPACE/pom.xml
-cd $POMPATH && mvn help:evaluate -Dexpression=project.version
+cd mvn help:evaluate -Dexpression=project.version -q -DforceStdout
