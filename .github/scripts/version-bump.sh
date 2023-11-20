@@ -30,8 +30,8 @@ function bump {
       ;;
     esac
 }
-
-OLD_VERSION=$($DIR/get-version.sh)
+echo "Directory Path" $DIR
+OLD_VERSION=$($GITHUB_WORKSPACE/.github/scripts/get-version.sh)
 
 BUMP_MODE="none"
 if git log -1 | grep -q "#major"; then
